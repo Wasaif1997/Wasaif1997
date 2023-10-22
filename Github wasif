@@ -1,0 +1,94 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class MenuBasedProgram {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int option;
+
+        do {
+            displayMenu();
+            System.out.print("Option: ");
+            option = scanner.nextInt();
+
+            switch (option) {
+                case 1:
+                    printPattern();
+                    break;
+                case 2:
+                    rotateArray();
+                    break;
+                case 3:
+                    displayHelp();
+                    break;
+                case 4:
+                    System.out.println("Exiting the program. Goodbye!");
+                    break;
+                default:
+                    System.out.println("Invalid option. Please try again.");
+            }
+
+        } while (option != 4);
+    }
+
+    private static void displayMenu() {
+        System.out.println("PROGRAM FLOW SAMPLE");
+        System.out.println("Welcome to the Menu-Based Program!");
+        System.out.println("Please select an option:");
+        System.out.println("1. Print Pattern");
+        System.out.println("2. Rotate Array");
+        System.out.println("3. Help");
+        System.out.println("4. Exit");
+    }
+
+    private static void printPattern() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the number of rows for the pattern: ");
+        int n = scanner.nextInt();
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n - i; j++) {
+                System.out.print("*");
+            }
+            if (i < n - 1) {
+                System.out.print(" ");
+            }
+        }
+        System.out.println();
+    }
+
+    private static void rotateArray() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the number of elements (n): ");
+        int n = scanner.nextInt();
+        System.out.print("Enter the number of steps (k): ");
+        int k = scanner.nextInt();
+
+        int[] array = new int[n];
+        System.out.print("Enter the array elements separated by spaces: ");
+        for (int i = 0; i < n; i++) {
+            array[i] = scanner.nextInt();
+        }
+
+        rotateRight(array, k);
+
+        System.out.println("Output: " + Arrays.toString(array));
+    }
+
+    private static void rotateRight(int[] array, int k) {
+        int n = array.length;
+        k %= n;
+
+        int[] temp = Arrays.copyOfRange(array, n - k, n);
+        System.arraycopy(array, 0, array, k, n - k);
+        System.arraycopy(temp, 0, array, 0, k);
+    }
+
+    private static void displayHelp() {
+        System.out.println("--- Help ---");
+        System.out.println("Option 1: Print a pattern with 'n' rows of decreasing asterisks.");
+        System.out.println("Option 2: Rotate an array of 'n' elements to the right by 'k' steps.");
+        System.out.println("Option 3: Display this help message.");
+        System.out.println("Option 4: Exit the program.");
+    }
+}
